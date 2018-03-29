@@ -35,6 +35,7 @@
     <entry key="java_typemapping.java.lang.Integer">Integer</entry>
     <entry key="java_typemapping.java.lang.Byte">Integer</entry>
     <entry key="java_typemapping.java.lang.Short">Integer</entry>
+    <entry key="java_typemapping.java.lang.Float">Float</entry>
     <entry key="java_typemapping.java.math.BigDecimal">BigDecimal</entry>
     <entry key="java_typemapping.java.math.BigInteger">Long</entry>
 

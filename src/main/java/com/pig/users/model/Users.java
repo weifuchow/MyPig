@@ -15,7 +15,7 @@ import java.util.Date;
 /**
  * @表名 users的实体类
  * @category 
- * @author weifuzhou 2018-03-25 15:14:03
+ * @author weifuzhou 2018-03-29 19:50:13
  * 
  */
 @Entity
@@ -40,7 +40,7 @@ public class Users implements Serializable{
 	private String userImg;
 
 	@Column(name="balance")
-	private Integer balance;
+	private Float balance;
 
 	@Column(name="phone")
 	private String phone;
@@ -49,6 +49,9 @@ public class Users implements Serializable{
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
 	@Column(name="create_date")
 	private Date createDate;
+
+	@Column(name="password")
+	private String password;
 
 
     /**
@@ -100,14 +103,14 @@ public class Users implements Serializable{
      * users
      * <p>余额</p>
      */
-    public void setBalance(Integer value){
+    public void setBalance(Float value){
         this.balance = value;
     }
 
     /**
      * <p>余额</p>
      */
-    public Integer getBalance() {
+    public Float getBalance() {
         return this.balance;
     }
 
@@ -141,6 +144,21 @@ public class Users implements Serializable{
         return this.createDate;
     }
 
+    /**
+     * users
+     * <p>password</p>
+     */
+    public void setPassword(String value){
+        this.password = value;
+    }
+
+    /**
+     * <p>password</p>
+     */
+    public String getPassword() {
+        return this.password;
+    }
+
 
     public Map<String, Serializable> convertToMap() {
         HashMap<String, Serializable> map = new HashMap<String, Serializable>();
@@ -150,6 +168,7 @@ public class Users implements Serializable{
         map.put("balance", balance);
         map.put("phone", phone);
         map.put("createDate", createDate);
+        map.put("password", password);
         return map;
     }
 
@@ -157,9 +176,10 @@ public class Users implements Serializable{
         if(map.containsKey("id")) this.setId(DataTypeUtils.getIntegerValue(map.get("id")));
         if(map.containsKey("userName")) this.setUserName(DataTypeUtils.getStringValue(map.get("userName")));
         if(map.containsKey("userImg")) this.setUserImg(DataTypeUtils.getStringValue(map.get("userImg")));
-        if(map.containsKey("balance")) this.setBalance(DataTypeUtils.getIntegerValue(map.get("balance")));
+        if(map.containsKey("balance")) this.setBalance(DataTypeUtils.getFloatValue(map.get("balance")));
         if(map.containsKey("phone")) this.setPhone(DataTypeUtils.getStringValue(map.get("phone")));
         if(map.containsKey("createDate")) this.setCreateDate(DataTypeUtils.getDateValue(map.get("createDate")));
+        if(map.containsKey("password")) this.setPassword(DataTypeUtils.getStringValue(map.get("password")));
     }
 
 }

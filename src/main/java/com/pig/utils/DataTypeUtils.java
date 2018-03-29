@@ -30,6 +30,10 @@ public class DataTypeUtils {
         return value == null ? null : (Date) value;
     }
 
+    public static Float getFloatValue(Object value) {
+        return value == null ? null : (Float) value;
+    }
+    
     public static Boolean getBooleanValue(Object value) {
         return (Boolean) value;
     }
