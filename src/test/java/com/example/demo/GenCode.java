@@ -12,7 +12,12 @@ public class GenCode {
         //删除生成器的输出目录// test
         //g.deleteOutRootDir();
         //通过数据库表生成文件11
-        g.generateByTable("users");
+        g.generateByTable("users",
+        				  "goods",
+        				  "cash_flow",
+        				  "cart",
+        				  "address",
+        				  "orders");
 
     }
 }

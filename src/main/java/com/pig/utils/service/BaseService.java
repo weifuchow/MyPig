@@ -68,12 +68,12 @@ public class BaseService<T extends JpaRepository & JpaSpecificationExecutor, Q e
         return (S) repository.findById(id);
     }
 
-    public void deleteById(Serializable id) {
+    public void delete(Serializable id) {
         repository.delete(id);
     }
 
     public <S> void deleteById(S entity) {
-        repository.delete(entity);
+        repository.deleteById(entity);
     }
 
     public <S> S save(S entity) {

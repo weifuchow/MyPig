@@ -31,9 +31,9 @@ public class Swagger2Config {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("Sun qing接口文档")
-                .description("第一个Swagger UI项目")
+                .description("RestFul Api")
                 .termsOfServiceUrl("http://www.baidu.com")
-                .contact("商学军")
+                .contact("孙晴")
                 .version("1.0")
                 .build();
     }
