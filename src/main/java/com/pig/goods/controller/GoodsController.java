@@ -53,7 +53,7 @@ public class GoodsController{
             @ApiResponse(code = 403,message = "请求非法，请求方式错误"),
             @ApiResponse(code = 404,message = "页面不存在")
     })
-    public WeifuResult UpdateSysUser(Goods goods) {
+    public WeifuResult updateGoods(Goods goods) {
     	return WeifuResult.getIsOkResult(
     			goodsService.modify(goods,goods.getId()));
     }
@@ -65,10 +65,15 @@ public class GoodsController{
             @ApiResponse(code = 401,message = "未认证"),
             @ApiResponse(code = 403,message = "请求非法，请求方式错误"),
             @ApiResponse(code = 404,message = "页面不存在")
-    })
-    public WeifuResult delateSysUser(@RequestParam(value = "id" ,required = true) Integer id) {
+    }) 
+    public WeifuResult delateGoods(@RequestParam(value = "id" ,required = true) Integer id) {
     	goodsService.deleteById(id);	
     	return WeifuResult.getIsOkResult(null);
     }
     
+    @RequestMapping(value = "/findById" ,method = RequestMethod.GET)
+    public WeifuResult findById(@RequestParam(value = "id" ,required = true) Integer id) {
+    	return WeifuResult.getIsOkResult
+    			(goodsService.findById(id));
+    }
 }

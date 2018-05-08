@@ -19,17 +19,18 @@ public class GoodsQuery extends BaseQuery<Goods>{
 
     /*
      * 组合where查询条件
+     * */
     public Specification<Goods> where() {
         return new Specification<Goods>() {
             @Override
             public Predicate toPredicate(Root<Goods> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
                 Predicate where = null;
                 if (!StringUtils.isEmpty(getKeyword())) {
-                    where = criteriaBuilder.like(root.get("acctNbr").as(String.class), "%" + getKeyword() + "%");
+                    where = criteriaBuilder.equal(root.get("goodsType").as(String.class),getKeyword());
                 }
                 return where == null ? null : criteriaQuery.where(where).getRestriction();
             }
         };
     }
-    */
+    
 }

@@ -11,5 +11,8 @@ import org.springframework.stereotype.Service;
 @Transactional
 public class UsersService extends BaseService<UsersRepository,UsersQuery>{
 
+	public Users login(String phone,String password) {
+		return repository.login(phone, password);
+	}
 
 }

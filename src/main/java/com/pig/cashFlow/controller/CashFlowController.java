@@ -53,7 +53,7 @@ public class CashFlowController{
             @ApiResponse(code = 403,message = "请求非法，请求方式错误"),
             @ApiResponse(code = 404,message = "页面不存在")
     })
-    public WeifuResult UpdateSysUser(CashFlow cashFlow) {
+    public WeifuResult updateCashFlow(CashFlow cashFlow) {
     	return WeifuResult.getIsOkResult(
     			cashFlowService.modify(cashFlow,cashFlow.getId()));
     }
@@ -66,7 +66,7 @@ public class CashFlowController{
             @ApiResponse(code = 403,message = "请求非法，请求方式错误"),
             @ApiResponse(code = 404,message = "页面不存在")
     })
-    public WeifuResult delateSysUser(@RequestParam(value = "id" ,required = true) Integer id) {
+    public WeifuResult delateCashFlow(@RequestParam(value = "id" ,required = true) Integer id) {
     	cashFlowService.deleteById(id);	
     	return WeifuResult.getIsOkResult(null);
     }

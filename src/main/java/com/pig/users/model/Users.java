@@ -15,7 +15,7 @@ import java.util.Date;
 /**
  * @表名 users的实体类
  * @category 
- * @author weifuzhou 2018-03-30 17:57:37
+ * @author weifuzhou 2018-03-31 11:57:12
  * 
  */
 @Entity

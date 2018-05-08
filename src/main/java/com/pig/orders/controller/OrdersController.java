@@ -53,7 +53,7 @@ public class OrdersController{
             @ApiResponse(code = 403,message = "请求非法，请求方式错误"),
             @ApiResponse(code = 404,message = "页面不存在")
     })
-    public WeifuResult UpdateSysUser(Orders orders) {
+    public WeifuResult updateOrders(Orders orders) {
     	return WeifuResult.getIsOkResult(
     			ordersService.modify(orders,orders.getId()));
     }
@@ -66,7 +66,7 @@ public class OrdersController{
             @ApiResponse(code = 403,message = "请求非法，请求方式错误"),
             @ApiResponse(code = 404,message = "页面不存在")
     })
-    public WeifuResult delateSysUser(@RequestParam(value = "id" ,required = true) Integer id) {
+    public WeifuResult delateOrders(@RequestParam(value = "id" ,required = true) Integer id) {
     	ordersService.deleteById(id);	
     	return WeifuResult.getIsOkResult(null);
     }

@@ -53,7 +53,7 @@ public class CartController{
             @ApiResponse(code = 403,message = "请求非法，请求方式错误"),
             @ApiResponse(code = 404,message = "页面不存在")
     })
-    public WeifuResult UpdateSysUser(Cart cart) {
+    public WeifuResult updateCart(Cart cart) {
     	return WeifuResult.getIsOkResult(
     			cartService.modify(cart,cart.getId()));
     }
@@ -66,7 +66,7 @@ public class CartController{
             @ApiResponse(code = 403,message = "请求非法，请求方式错误"),
             @ApiResponse(code = 404,message = "页面不存在")
     })
-    public WeifuResult delateSysUser(@RequestParam(value = "id" ,required = true) Integer id) {
+    public WeifuResult delateCart(@RequestParam(value = "id" ,required = true) Integer id) {
     	cartService.deleteById(id);	
     	return WeifuResult.getIsOkResult(null);
     }

@@ -15,7 +15,7 @@ import java.util.Date;
 /**
  * @表名 orders的实体类
  * @category 
- * @author weifuzhou 2018-03-30 17:57:38
+ * @author weifuzhou 2018-03-31 11:57:13
  * 
  */
 @Entity
