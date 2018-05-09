@@ -90,8 +90,9 @@ public class UsersController{
             @ApiResponse(code = 403,message = "请求非法，请求方式错误"),
             @ApiResponse(code = 404,message = "页面不存在")
     })
-    public WeifuResult loginSysUser(@RequestParam(value = "phone" ,required = true) String phone 
-    							   ,@RequestParam(value = "password" ,required = true) String password) {
+    public WeifuResult loginSysUser(@RequestBody(required = true) Users user) {
+    	String phone = user.getPhone();
+    	String password = user.getPassword();
     	password = AppMD5Util.MD5(password);
     	Users users = usersService.login(phone, password);
     	if(users == null) {
