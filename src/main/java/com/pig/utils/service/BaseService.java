@@ -65,7 +65,7 @@ public class BaseService<T extends JpaRepository & JpaSpecificationExecutor, Q e
     }
 
     public <S> S findById(Serializable id) {
-        return (S) repository.findById(id);
+        return (S) repository.findById(id).get();
     }
 
     public void delete(Serializable id) {
@@ -84,9 +84,9 @@ public class BaseService<T extends JpaRepository & JpaSpecificationExecutor, Q e
     	return (S) repository.saveAndFlush(entity);
     }
     public <S> S modify(S entity,Serializable id) {
-    	Optional<S> old = findById(id);
-    	BeanUtils.copyProperties(entity, old.get(), BeanUtilsExt.getNullPropertyNames(entity));  
-    	return (S) repository.saveAndFlush(old.get());
+    	S old = findById(id);
+    	BeanUtils.copyProperties(entity,old, BeanUtilsExt.getNullPropertyNames(entity));  
+    	return (S) repository.saveAndFlush(old);
     }
     
     public boolean exist(Serializable id) {

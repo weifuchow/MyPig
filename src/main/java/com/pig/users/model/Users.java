@@ -96,6 +96,8 @@ public class Users implements Serializable{
      * <p>头像</p>
      */
     public String getUserImg() {
+    	if(this.userImg == null)
+    		return "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1522479820433&di=f142d3117a8d8634fea18b7be67b65c3&imgtype=0&src=http%3A%2F%2Fwww.qqzhi.com%2Fuploadpic%2F2014-06-03%2F032648825.jpg";
         return this.userImg;
     }
 
@@ -111,6 +113,8 @@ public class Users implements Serializable{
      * <p>余额</p>
      */
     public Float getBalance() {
+    	if(this.balance == null)
+    		return 0.0F;
         return this.balance;
     }
 
@@ -172,7 +176,10 @@ public class Users implements Serializable{
         return map;
     }
 
-    public void updateFromMap(Map<String, Serializable> map) {
+    
+   
+
+	public void updateFromMap(Map<String, Serializable> map) {
         if(map.containsKey("id")) this.setId(DataTypeUtils.getIntegerValue(map.get("id")));
         if(map.containsKey("userName")) this.setUserName(DataTypeUtils.getStringValue(map.get("userName")));
         if(map.containsKey("userImg")) this.setUserImg(DataTypeUtils.getStringValue(map.get("userImg")));

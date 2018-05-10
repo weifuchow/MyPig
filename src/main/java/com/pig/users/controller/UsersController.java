@@ -49,7 +49,7 @@ public class UsersController{
             @ApiResponse(code = 403,message = "请求非法，请求方式错误"),
             @ApiResponse(code = 404,message = "页面不存在")
     })
-    public WeifuResult addUsers(Users users) throws Exception {  	
+    public WeifuResult addUsers(@RequestBody(required = true)Users users) throws Exception {  	
     	users.setPassword(AppMD5Util.MD5(users.getPassword()));
     	users.setUserName(users.getPhone()+"手机用户");
     	return WeifuResult.getIsOkResult(
@@ -64,7 +64,7 @@ public class UsersController{
             @ApiResponse(code = 403,message = "请求非法，请求方式错误"),
             @ApiResponse(code = 404,message = "页面不存在")
     })
-    public WeifuResult updateUsers(Users users) {
+    public WeifuResult updateUsers(@RequestBody(required = true)Users users) {
     	return WeifuResult.getIsOkResult(
     			usersService.modify(users,users.getId()));
     }

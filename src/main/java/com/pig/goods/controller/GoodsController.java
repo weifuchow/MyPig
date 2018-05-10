@@ -76,4 +76,18 @@ public class GoodsController{
     	return WeifuResult.getIsOkResult
     			(goodsService.findById(id));
     }
+    
+    
+    @RequestMapping(value = "/buy" ,method = RequestMethod.GET)
+    @ApiOperation(value = "购买商品",notes = "用户id,商品id不能为空")
+    @ApiResponses({
+            @ApiResponse(code = 400,message = "请求参数没填好"),
+            @ApiResponse(code = 401,message = "未认证"),
+            @ApiResponse(code = 403,message = "请求非法，请求方式错误"),
+            @ApiResponse(code = 404,message = "页面不存在")
+    }) 
+    public WeifuResult buyGoods(@RequestParam(value = "userId" ,required = true) Integer userId,
+    		@RequestParam(value = "goodsId" ,required = true) Integer goodsId) {
+    	return goodsService.buyGoods(userId, goodsId);
+    }
 }

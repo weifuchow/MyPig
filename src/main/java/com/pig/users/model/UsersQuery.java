@@ -15,21 +15,31 @@ public class UsersQuery extends BaseQuery<Users>{
     /**
      * 自定义查询字段
      */
-    //public String xxx;
+    public Long id;
 
-    /*
-     * 组合where查询条件
+    
+    //组合where查询条件
     public Specification<Users> where() {
         return new Specification<Users>() {
             @Override
             public Predicate toPredicate(Root<Users> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
                 Predicate where = null;
-                if (!StringUtils.isEmpty(getKeyword())) {
-                    where = criteriaBuilder.like(root.get("acctNbr").as(String.class), "%" + getKeyword() + "%");
+                if (getId() != null) {
+                    where = criteriaBuilder.equal(root.get("id").as(Long.class), getId());
                 }
                 return where == null ? null : criteriaQuery.where(where).getRestriction();
             }
         };
     }
-    */
+
+
+	public Long getId() {
+		return id;
+	}
+
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+    
 }
