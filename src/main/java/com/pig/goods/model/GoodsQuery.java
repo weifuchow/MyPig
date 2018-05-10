@@ -28,6 +28,9 @@ public class GoodsQuery extends BaseQuery<Goods>{
                 if (!StringUtils.isEmpty(getKeyword())) {
                     where = criteriaBuilder.equal(root.get("goodsType").as(String.class),getKeyword());
                 }
+                else {
+                	where = criteriaBuilder.greaterThan(root.get("goodsType").as(String.class),"0");
+                }
                 return where == null ? null : criteriaQuery.where(where).getRestriction();
             }
         };

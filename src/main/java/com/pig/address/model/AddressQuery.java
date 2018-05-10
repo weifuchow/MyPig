@@ -17,19 +17,18 @@ public class AddressQuery extends BaseQuery<Address>{
      */
     //public String xxx;
 
-    /*
-     * 组合where查询条件
+    
     public Specification<Address> where() {
         return new Specification<Address>() {
             @Override
             public Predicate toPredicate(Root<Address> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
                 Predicate where = null;
                 if (!StringUtils.isEmpty(getKeyword())) {
-                    where = criteriaBuilder.like(root.get("acctNbr").as(String.class), "%" + getKeyword() + "%");
+                    where = criteriaBuilder.equal(root.get("addressUserId").as(Integer.class),getKeyword());
                 }
                 return where == null ? null : criteriaQuery.where(where).getRestriction();
             }
         };
     }
-    */
+    
 }

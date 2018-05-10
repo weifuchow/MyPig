@@ -1,24 +1,22 @@
 package com.pig.users.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.pig.users.model.Users;
+import com.pig.users.model.UsersQuery;
+import com.pig.users.service.UsersService;
+import com.pig.utils.AppMD5Util;
+import com.pig.utils.entity.WeifuResult;
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-
-import com.pig.utils.AppMD5Util;
-import com.pig.utils.entity.*;
-import com.pig.users.model.*;
-import com.pig.users.service.UsersService;
-import org.springframework.stereotype.Service;
-
-import java.io.UnsupportedEncodingException;
-
-import javax.servlet.http.HttpSession;
-
-import org.apache.tomcat.util.security.MD5Encoder;
-import org.bouncycastle.jce.provider.JCEKeyGenerator.DESede3;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
 
 
 @RequestMapping("/users/api")

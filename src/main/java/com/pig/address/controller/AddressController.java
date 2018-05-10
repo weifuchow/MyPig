@@ -40,7 +40,7 @@ public class AddressController{
             @ApiResponse(code = 403,message = "请求非法，请求方式错误"),
             @ApiResponse(code = 404,message = "页面不存在")
     })
-    public WeifuResult addAddress(Address address) {
+    public WeifuResult addAddress(@RequestBody(required = true)Address address) {
     	return WeifuResult.getIsOkResult(
     			addressService.saveAndFlush(address));
     }
@@ -53,7 +53,7 @@ public class AddressController{
             @ApiResponse(code = 403,message = "请求非法，请求方式错误"),
             @ApiResponse(code = 404,message = "页面不存在")
     })
-    public WeifuResult updateAddress(Address address) {
+    public WeifuResult updateAddress(@RequestBody(required = true)Address address) {
     	return WeifuResult.getIsOkResult(
     			addressService.modify(address,address.getId()));
     }

@@ -15,6 +15,6 @@ import org.springframework.data.jpa.repository.Query;
 public interface AddressRepository extends JpaRepository<Address,Integer>, JpaSpecificationExecutor<Address>{
 
 	@Query(value="select u from Address u where u.addressUserId = ?1 and u.status = 1")
-	public Address getAddressByUserId(Integer addressUserId);
+	public List<Address> getAddressByUserId(Integer addressUserId);
 	
 }

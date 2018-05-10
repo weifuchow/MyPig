@@ -15,7 +15,8 @@ import org.springframework.stereotype.Service;
 public class AddressService extends BaseService<AddressRepository,AddressQuery>{
 
 	public Address getAddressByUserId(Integer addressUserId){
-		return repository.getAddressByUserId(addressUserId);
+		List<Address> list = repository.getAddressByUserId(addressUserId);
+		return list.size() == 0 ? null : list.get(0);
 	}
 	
 	public Boolean CheckUserAddress(Integer addressUserId) {

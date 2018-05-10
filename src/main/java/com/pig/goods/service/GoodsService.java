@@ -2,6 +2,7 @@ package com.pig.goods.service;
 
 import com.pig.utils.entity.WeifuResult;
 import com.pig.utils.service.BaseService;
+import com.pig.address.model.Address;
 import com.pig.address.service.AddressService;
 import com.pig.cashFlow.model.CashFlow;
 import com.pig.cashFlow.service.CashFlowService;
@@ -41,18 +42,22 @@ public class GoodsService extends BaseService<GoodsRepository,GoodsQuery>{
 	private static String GOODS_NOT_FOUND = "商品找不到";
 	private static String USER_NOT_FOUND = "用户找不到";
 
-	public WeifuResult buyGoods(Integer userId,Integer goodsId) {
+	public WeifuResult buyGoods(Integer userId,Integer goodsId,Integer addressId,int num) {
 		//获取数据
 		Users user = usersService.findById(userId);
 		Goods goods = findById(goodsId);
-		WeifuResult isNotBuyResult = checkisNotBuyOption(user,goods);
+		Address address = addressService.findById(addressId);
+		//
+		WeifuResult isNotBuyResult = checkisNotBuyOption(user,goods,address);
 		if(isNotBuyResult != null)
 			return isNotBuyResult;
 		else {
 			//2.增加订单表信息
-			Orders order = ordersService.addOrder(user, goods);
+			Orders order = ordersService.addOrder(user, goods,address,num);
 			//3.增加用户流水表
-			CashFlow cashFlow = cashFlowService.addCashFlow(user, order, goods, 0);
+			Integer accountType = Integer.valueOf(goods.getGoodsType()); // accountType =0 为充值
+			accountType = accountType == 0 ? 1 : 0;
+			CashFlow cashFlow = cashFlowService.addCashFlow(user, order, goods, accountType);
 			//4. 减去用户余额
 			user.setBalance(cashFlow.getAfterBalance());
 			Map<String, Serializable> map = user.convertToMap();
@@ -79,15 +84,17 @@ public class GoodsService extends BaseService<GoodsRepository,GoodsQuery>{
 	
 	// 检查具有不能购买条件。如果是返回 weifuResult
 	// 否则 为 null
-	public WeifuResult checkisNotBuyOption(Users user,Goods goods) {
+	public WeifuResult checkisNotBuyOption(Users user,Goods goods,Address address) {
 		if(user == null)
 			return WeifuResult.getIsErrorResult(203, USER_NOT_FOUND, "USER_NOT_FOUND");
 		if(goods == null)
 			return WeifuResult.getIsErrorResult(203, GOODS_NOT_FOUND, "GOODS_NOT_FOUND");
-		if(!addressService.CheckUserAddress(user.getId()))
-			return WeifuResult.getIsErrorResult(204, SET_ADDRESS, "SET_ADDRESS");
-		if(!checkBalance(user,goods)) {
-			return WeifuResult.getIsErrorResult(205,NOT_SUFFICIENT_FUNDS,"NOT_SUFFICIENT_FUNDS");	
+		if(!goods.getGoodsType().equals("0")) {
+		   if(address == null )
+			  return WeifuResult.getIsErrorResult(204, SET_ADDRESS, "SET_ADDRESS");
+		   if(!checkBalance(user,goods)) {
+			  return WeifuResult.getIsErrorResult(205,NOT_SUFFICIENT_FUNDS,"NOT_SUFFICIENT_FUNDS");	
+		   }
 		}
 		return null;
 	}

@@ -17,19 +17,20 @@ public class CartQuery extends BaseQuery<Cart>{
      */
     //public String xxx;
 
-    /*
-     * 组合where查询条件
+
     public Specification<Cart> where() {
         return new Specification<Cart>() {
             @Override
             public Predicate toPredicate(Root<Cart> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
                 Predicate where = null;
+                Predicate where1 = null;
                 if (!StringUtils.isEmpty(getKeyword())) {
-                    where = criteriaBuilder.like(root.get("acctNbr").as(String.class), "%" + getKeyword() + "%");
+                    where = criteriaBuilder.equal(root.get("userId").as(Integer.class),getKeyword());
+                    where1 = criteriaBuilder.equal(root.get("status").as(Integer.class),0);                    		
                 }
-                return where == null ? null : criteriaQuery.where(where).getRestriction();
+                return where == null ? null : criteriaQuery.where(criteriaBuilder.and(where,where1)).getRestriction();
             }
         };
     }
-    */
+    
 }

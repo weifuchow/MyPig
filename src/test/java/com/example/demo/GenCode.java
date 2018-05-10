@@ -1,9 +1,9 @@
-package com.example.demo;
+/*package com.example.demo;
 import cn.org.rapid_framework.generator.GeneratorFacade;
 
-/**
+*//**
  * Created by chuangang.li on 2017/1/20.
- */
+ *//*
 public class GenCode {
     public static void main(String[] args) throws Exception {
         String templatePath = ClassLoader.getSystemResource("myTemplate").toString();
@@ -21,3 +21,4 @@ public class GenCode {
 
     }
 }
+*/

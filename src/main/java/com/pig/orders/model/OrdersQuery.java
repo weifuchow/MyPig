@@ -15,21 +15,41 @@ public class OrdersQuery extends BaseQuery<Orders>{
     /**
      * 自定义查询字段
      */
-    //public String xxx;
+    public String status;
+    
 
-    /*
-     * 组合where查询条件
-    public Specification<Orders> where() {
+    
+    public String getStatus() {
+		return status;
+	}
+
+
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+
+
+	public Specification<Orders> where() {
         return new Specification<Orders>() {
             @Override
             public Predicate toPredicate(Root<Orders> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
                 Predicate where = null;
+                Predicate where1 = null;
                 if (!StringUtils.isEmpty(getKeyword())) {
-                    where = criteriaBuilder.like(root.get("acctNbr").as(String.class), "%" + getKeyword() + "%");
+                    where = criteriaBuilder.equal(root.get("userId").as(Integer.class),getKeyword());
+                    where1 = criteriaBuilder.greaterThan(root.get("addressId").as(Integer.class),0);
+                    //
+                    if (!StringUtils.isEmpty(getStatus())) {
+                    	where = criteriaBuilder.and(where,where1);
+                    	where1 = criteriaBuilder.equal(root.get("status").as(Integer.class),getStatus());
+                    }
                 }
-                return where == null ? null : criteriaQuery.where(where).getRestriction();
+                return where == null ? null : criteriaQuery.orderBy(criteriaBuilder.desc(root.get("createDate")))
+                		.where(criteriaBuilder.and(where,where1)).getRestriction();
             }
         };
     }
-    */
+    
 }

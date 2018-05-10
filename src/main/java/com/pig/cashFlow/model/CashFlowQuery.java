@@ -17,19 +17,18 @@ public class CashFlowQuery extends BaseQuery<CashFlow>{
      */
     //public String xxx;
 
-    /*
-     * 组合where查询条件
+
     public Specification<CashFlow> where() {
         return new Specification<CashFlow>() {
             @Override
             public Predicate toPredicate(Root<CashFlow> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
                 Predicate where = null;
                 if (!StringUtils.isEmpty(getKeyword())) {
-                    where = criteriaBuilder.like(root.get("acctNbr").as(String.class), "%" + getKeyword() + "%");
+                    where = criteriaBuilder.equal(root.get("userId").as(Integer.class), getKeyword());
                 }
                 return where == null ? null : criteriaQuery.where(where).getRestriction();
             }
         };
     }
-    */
+    
 }

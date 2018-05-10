@@ -1,5 +1,6 @@
 package com.pig.cart.model;
 
+import com.pig.goods.model.Goods;
 import com.pig.utils.DataTypeUtils;
 import javax.persistence.*;
 import org.hibernate.annotations.DynamicInsert;
@@ -45,8 +46,19 @@ public class Cart implements Serializable{
 	@Column(name="status")
 	private Integer status;
 
+	@Transient
+	private Goods goods;
+	
+	
+    public Goods getGoods() {
+		return goods;
+	}
 
-    /**
+	public void setGoods(Goods goods) {
+		this.goods = goods;
+	}
+
+	/**
      * cart
      * <p>id</p>
      */

@@ -65,7 +65,10 @@ public class BaseService<T extends JpaRepository & JpaSpecificationExecutor, Q e
     }
 
     public <S> S findById(Serializable id) {
-        return (S) repository.findById(id).get();
+        Optional<S> obj  = repository.findById(id) ;
+        if(obj.isPresent())
+        	return obj.get();
+        return null;
     }
 
     public void delete(Serializable id) {
