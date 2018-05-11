@@ -105,4 +105,16 @@ public class GoodsController{
     	return goodsService.buyGoods(userId,balance,0,1);
     }
     
+    @RequestMapping(value = "/withDraw" ,method = RequestMethod.POST)
+    @ApiOperation(value = "充值余额",notes = "用户id,提现金额不能为空")
+    @ApiResponses({
+            @ApiResponse(code = 400,message = "请求参数没填好"),
+            @ApiResponse(code = 401,message = "未认证"),
+            @ApiResponse(code = 403,message = "请求非法，请求方式错误"),
+            @ApiResponse(code = 404,message = "页面不存在")
+    }) 
+    public WeifuResult withDraw(@RequestBody(required = true) WithDrawFrom withDrawForm) throws Exception {
+    	return goodsService.withdrawMoney(withDrawForm.getMoney(), withDrawForm.getUserId());
+    }
+    
 }

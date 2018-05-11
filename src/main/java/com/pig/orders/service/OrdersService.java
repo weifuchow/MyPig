@@ -49,7 +49,7 @@ public class OrdersService extends BaseService<OrdersRepository,OrdersQuery>{
 		orders.setGoodsId(good.getId());
 		orders.setUserId(user.getId());
 		orders.setGoodsNums(num);
-		orders.setOrderPrice(good.getGoodsPrice()*num);
+		orders.setOrderPrice(good.getGoodsPrice()*num + good.getGoodsCarriage());
 		//
 		return save(orders);
 	}
@@ -60,7 +60,7 @@ public class OrdersService extends BaseService<OrdersRepository,OrdersQuery>{
 		orders.setGoodsId(good.getId());
 		orders.setUserId(user.getId());
 		orders.setGoodsNums(num);
-		orders.setOrderPrice(good.getGoodsPrice()*1);
+		orders.setOrderPrice(good.getGoodsPrice()*num);
 		//
 		return save(orders);
 	}

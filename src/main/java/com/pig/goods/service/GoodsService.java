@@ -1,18 +1,5 @@
 package com.pig.goods.service;
 
-import com.pig.utils.entity.WeifuResult;
-import com.pig.utils.service.BaseService;
-import com.pig.address.model.Address;
-import com.pig.address.service.AddressService;
-import com.pig.cashFlow.model.CashFlow;
-import com.pig.cashFlow.service.CashFlowService;
-import com.pig.goods.model.*;
-import com.pig.goods.repository.GoodsRepository;
-import com.pig.orders.model.Orders;
-import com.pig.orders.service.OrdersService;
-import com.pig.users.model.Users;
-import com.pig.users.service.UsersService;
-
 import java.io.Serializable;
 import java.util.Map;
 
@@ -20,6 +7,20 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.pig.address.model.Address;
+import com.pig.address.service.AddressService;
+import com.pig.cashFlow.model.CashFlow;
+import com.pig.cashFlow.service.CashFlowService;
+import com.pig.goods.model.Goods;
+import com.pig.goods.model.GoodsQuery;
+import com.pig.goods.repository.GoodsRepository;
+import com.pig.orders.model.Orders;
+import com.pig.orders.service.OrdersService;
+import com.pig.users.model.Users;
+import com.pig.users.service.UsersService;
+import com.pig.utils.entity.WeifuResult;
+import com.pig.utils.service.BaseService;
 
 @Service
 @Transactional
@@ -48,6 +49,10 @@ public class GoodsService extends BaseService<GoodsRepository,GoodsQuery>{
 		Goods goods = findById(goodsId);
 		Address address = addressService.findById(addressId);
 		//
+		return buyGoods(num, user, goods, address);
+	}
+
+	private WeifuResult buyGoods(int num, Users user, Goods goods, Address address) {
 		WeifuResult isNotBuyResult = checkisNotBuyOption(user,goods,address);
 		if(isNotBuyResult != null)
 			return isNotBuyResult;
@@ -89,7 +94,7 @@ public class GoodsService extends BaseService<GoodsRepository,GoodsQuery>{
 			return WeifuResult.getIsErrorResult(203, USER_NOT_FOUND, "USER_NOT_FOUND");
 		if(goods == null)
 			return WeifuResult.getIsErrorResult(203, GOODS_NOT_FOUND, "GOODS_NOT_FOUND");
-		if(!goods.getGoodsType().equals("0")) {
+		if(!goods.getGoodsType().equals("0") && !goods.getGoodsType().equals("-1")) {
 		   if(address == null )
 			  return WeifuResult.getIsErrorResult(204, SET_ADDRESS, "SET_ADDRESS");
 		   if(!checkBalance(user,goods)) {
@@ -97,5 +102,26 @@ public class GoodsService extends BaseService<GoodsRepository,GoodsQuery>{
 		   }
 		}
 		return null;
+	}
+	
+	public WeifuResult withdrawMoney(float money,Integer userId) throws Exception {
+		Users user = usersService.findById(userId);
+		if(user.getBalance() < money)
+			return WeifuResult.getIsErrorResult(205, "提现金额超过余额,提现失败", "ERROR_WITHDRAW");
+		//增加商品
+		Goods goods = new Goods();
+		goods.setGoodsCarriage(0);
+		goods.setGoodsType("-1");
+		goods.setGoodsShowImg("0");
+		goods.setGoodsPrice(money);
+		goods.setGoodsName("余额提现——"+money);
+		goods.setUserId(user.getId());
+		goods = this.save(goods);
+		//调用 购买流程
+		WeifuResult weifuResult =  buyGoods(1, user, goods, null);
+		if(weifuResult.getCode() > 200) {
+			throw new Exception("提现失败");
+		}
+		return weifuResult;
 	}
 }
